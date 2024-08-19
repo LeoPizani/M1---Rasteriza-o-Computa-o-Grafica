@@ -1,0 +1,59 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Raster : MonoBehaviour
+{
+    Renderer render;
+    Texture2D texture;
+
+    void Start()
+    {
+        render = GetComponent<Renderer>();
+
+        texture = new Texture2D(11, 11);
+        texture.filterMode = FilterMode.Point;
+
+        render.material.mainTexture = texture;
+
+        Refrash();
+    }
+
+    public void LineDDA(Vector2 p1, Vector2 p2, Color color)
+    {
+        Vector2 delta = p2 - p1;
+        Vector2 ponto = p1;
+
+        float passo = Mathf.Max(Mathf.Abs(delta.x), Mathf.Abs(delta.y));
+        if (passo != 0) delta = delta / passo;
+        for (int i = 0; i <= passo; i++)
+        {
+            texture.SetPixel((int)ponto.x, (int)ponto.y, color);
+            ponto = ponto + delta;
+        }
+    }
+
+    void Refrash()
+    {
+        //desenho
+        Vector2 p1 = new Vector2(5, 9);
+        Vector2 p2 = new Vector2(7, 6);
+        Vector2 p3 = new Vector2(10, 5);
+        Vector2 p4 = new Vector2(7, 4);
+        Vector2 p5 = new Vector2(5, 1);
+        Vector2 p6 = new Vector2(3, 4);
+        Vector2 p7 = new Vector2(0, 5);
+        Vector2 p8 = new Vector2(3, 6);
+
+        LineDDA(p1, p3, Color.yellow);
+        LineDDA(p3, p5, Color.yellow);
+        LineDDA(p5, p7, Color.yellow);
+        LineDDA(p7, p2, Color.yellow);
+        LineDDA(p2, p4, Color.yellow);
+        LineDDA(p4, p6, Color.yellow);
+        LineDDA(p6, p8, Color.yellow);
+        LineDDA(p8, p1, Color.yellow);
+
+        texture.Apply();
+    }
+}
