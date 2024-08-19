@@ -11,7 +11,7 @@ public class Raster : MonoBehaviour
     {
         render = GetComponent<Renderer>();
 
-        texture = new Texture2D(11, 11);
+        texture = new Texture2D(101, 101);
         texture.filterMode = FilterMode.Point;
 
         render.material.mainTexture = texture;
@@ -35,25 +35,19 @@ public class Raster : MonoBehaviour
 
     void Refrash()
     {
-        //desenho
-        Vector2 p1 = new Vector2(5, 9);
-        Vector2 p2 = new Vector2(7, 6);
-        Vector2 p3 = new Vector2(10, 5);
-        Vector2 p4 = new Vector2(7, 4);
-        Vector2 p5 = new Vector2(5, 1);
-        Vector2 p6 = new Vector2(3, 4);
-        Vector2 p7 = new Vector2(0, 5);
-        Vector2 p8 = new Vector2(3, 6);
 
-        LineDDA(p1, p3, Color.yellow);
-        LineDDA(p3, p5, Color.yellow);
-        LineDDA(p5, p7, Color.yellow);
-        LineDDA(p7, p2, Color.yellow);
-        LineDDA(p2, p4, Color.yellow);
-        LineDDA(p4, p6, Color.yellow);
-        LineDDA(p6, p8, Color.yellow);
-        LineDDA(p8, p1, Color.yellow);
+        Vector2 p1 = new Vector2(50, 20);
+        Vector2 p2 = new Vector2(80, 50);
+        Vector2 p3 = new Vector2(50, 80);
+        Vector2 p4 = new Vector2(20, 50);
 
-        texture.Apply();
+        Color color = Color.red;
+
+        LineDDA(p1, p2, color);
+        LineDDA(p2, p3, color);
+        LineDDA(p3, p4, color);
+        LineDDA(p4, p1, color);
+
+        texture.Apply(); ;
     }
 }
